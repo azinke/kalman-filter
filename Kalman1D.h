@@ -5,6 +5,12 @@
 #ifndef H_KALMAN1D
 #define H_KALMAN1D
 
+#if ARDUINO < 100
+#include <WProgram.h>
+#else
+#include <Arduino.h>
+#endif
+
 class Kalman1D{
     public:
         Kalman1D();
@@ -18,18 +24,19 @@ class Kalman1D{
         void setR(float R);
         
         float getK();
-        float getEstimate();
+        float getEstimate(float data);
         
     private:
         // private functions
         void _predicte();
-        void _update();
+        void _update(float z);
         
         //
         float _x;   // state
         float _p;   // error covariance
         float _q;   // process covariance
         float _r;   // measurement noise
+        float _u;
         
         float _k;    // Kalman gain
         

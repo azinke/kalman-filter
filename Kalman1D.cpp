@@ -2,7 +2,7 @@
     @autor: AMOUSSOU Z. Kenneth
     @date: 22-10-2018
 */
-#include <Kalman1D.h>
+#include "Kalman1D.h"
 
 /**
     @function: Constructor
@@ -12,6 +12,7 @@ Kalman1D::Kalman1D(){
     _p = 1.0;
     _q = 1.0;
     _r = 1.0;
+    _u = 0;
 }
 
 /**
@@ -101,7 +102,7 @@ void Kalman1D::setR(float R){
     @return: none
 */
 void Kalman1D::_predicte(){
-    _x = _a * x + _b * u;
+    _x = _a * _x + _b * _u;
     _p = _a * _a * _p + _q;
     return;
 }
@@ -116,9 +117,9 @@ void Kalman1D::_predicte(){
 void Kalman1D::_update(float z){
     float y = 0; // estimated output
     float s = 0;
-    y = z - (_C * _x)
-    _x = _A * x + _B * u;   // posterior estimate of the system's state
-    _p = _A * _A * _p + _q; // compute the estimate's covariance
+    y = z - (_c * _x);
+    _x = _a * _x + _a * _u;   // posterior estimate of the system's state
+    _p = _a * _a * _p + _q; // compute the estimate's covariance
     
     s = _c * _c * _p +_r;   
     _k = (_p * _c) / s;     // compute new Kalman Gain
@@ -134,8 +135,8 @@ void Kalman1D::_update(float z){
         P: scalar value to update the process covariance
     @return: none
 */
-void Kalman1D::getOutput(float data){
+float Kalman1D::getEstimate(float data){
     _predicte();
-    _update();
+    _update(data);
     return _x;  // new estimate
 }

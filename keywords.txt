@@ -1,0 +1,30 @@
+#######################################
+# Syntax Coloring Map Kalman
+# by Kenneth AMOUSSOU
+# 	github: @azinke
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+Kalman1D		KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+getEstimate	KEYWORD2
+setA	KEYWORD2
+setB    KEYWORD2
+setC    KEYWORD2
+setP    KEYWORD2
+setQ    KEYWORD2
+setR    KEYWORD2
+getK    KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+#CM	LITERAL1	Constants
+#INC	LITERAL1	Constants
