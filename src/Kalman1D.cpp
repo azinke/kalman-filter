@@ -35,7 +35,7 @@ Kalman1D::Kalman1D(float P, float Q, float R){
     @return: none
 */
 void Kalman1D::setA(float A){
-    _A = A; return;
+    _a    = A; return;
 }
 
 /**
@@ -46,7 +46,7 @@ void Kalman1D::setA(float A){
     @return: none
 */
 void Kalman1D::setB(float B){
-    _B = B; return;
+    _b = B; return;
 }
 
 /**
@@ -57,5 +57,85 @@ void Kalman1D::setB(float B){
     @return: none
 */
 void Kalman1D::setC(float C){
-    _C = C; return;
+    _c = C; return;
+}
+
+/**
+    function: setP
+    @summary: set the process covariance
+    @parameter:
+        P: scalar value to update the process covariance
+    @return: none
+*/
+void Kalman1D::setP(float P){
+    _p = P; return;
+}
+
+/**
+    function: setQ
+    @summary: set the process noise
+    @parameter:
+        Q: scalar value to update the process noise
+    @return: none
+*/
+void Kalman1D::setQ(float Q){
+    _q = Q; return;
+}
+
+/**
+    function: setR
+    @summary: set the measurement noise
+    @parameter:
+        R: scalar value to update the measurement noise
+    @return: none
+*/
+void Kalman1D::setR(float R){
+    _r = R; return;
+}
+
+/**
+    function: _predicte
+    @summary: compute de posterior estimate and the process covariance
+    @parameter:
+        P: scalar value to update the process covariance
+    @return: none
+*/
+void Kalman1D::_predicte(){
+    _x = _a * x + _b * u;
+    _p = _a * _a * _p + _q;
+    return;
+}
+
+/**
+    function: _update
+    @summary: compute de posterior estimate and the process covariance
+    @parameter:
+        z: new measurement or data from sensor (or file)
+    @return: none
+*/
+void Kalman1D::_update(float z){
+    float y = 0; // estimated output
+    float s = 0;
+    y = z - (_C * _x)
+    _x = _A * x + _B * u;   // posterior estimate of the system's state
+    _p = _A * _A * _p + _q; // compute the estimate's covariance
+    
+    s = _c * _c * _p +_r;   
+    _k = (_p * _c) / s;     // compute new Kalman Gain
+    _x += _k * y;           // compute new state
+    _p = (1 - _k * _c)/_p;  // compute new process estimate's covariance
+    return;
+}
+
+/**
+    function: _update
+    @summary: compute de posterior estimate and the process covariance
+    @parameter:
+        P: scalar value to update the process covariance
+    @return: none
+*/
+void Kalman1D::getOutput(float data){
+    _predicte();
+    _update();
+    return _x;  // new estimate
 }
