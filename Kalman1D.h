@@ -22,6 +22,7 @@ class Kalman1D{
         void setP(float P);
         void setQ(float Q);
         void setR(float R);
+        void setU(float U);
         
         float getK();
         float getEstimate(float data);
@@ -36,7 +37,7 @@ class Kalman1D{
         float _p;   // error covariance
         float _q;   // process covariance
         float _r;   // measurement noise
-        float _u;
+        float _u;   // control variable
         
         float _k;    // Kalman gain
         

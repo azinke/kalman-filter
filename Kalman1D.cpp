@@ -12,7 +12,7 @@ Kalman1D::Kalman1D(){
     _p = 1.0;
     _q = 1.0;
     _r = 1.0;
-    _u = 0;
+    _u = 0; // set the control variable to a default value
 }
 
 /**
@@ -26,6 +26,7 @@ Kalman1D::Kalman1D(float P, float Q, float R){
     _p = P;
     _q = Q;
     _r = R;
+    _u = 0; // set the control variable to a default value
 }
 
 /**
@@ -92,6 +93,17 @@ void Kalman1D::setQ(float Q){
 */
 void Kalman1D::setR(float R){
     _r = R; return;
+}
+
+/**
+    function: setU
+    @summary: set the control variable
+    @parameter:
+        U: scalar value to update the control variale
+    @return: none
+*/
+void Kalman1D::setU(float U){
+    _u = U; return;
 }
 
 /**
